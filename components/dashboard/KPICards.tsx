@@ -1,46 +1,59 @@
-import { Card, CardContent } from "@/components/ui/card";
+"use client";
 
-const cards = [
-  {
-    title: "Active Vehicles",
-    value: 18,
-    color: "text-blue-600",
-  },
-  {
-    title: "Available Vehicles",
-    value: 12,
-    color: "text-green-600",
-  },
-  {
-    title: "Active Trips",
-    value: 6,
-    color: "text-orange-600",
-  },
-  {
-    title: "Maintenance",
-    value: 2,
-    color: "text-red-600",
-  },
-];
+import { useEffect, useState } from "react";
+import { supabase } from "@/lib/supabase";
 
 export default function KPICards() {
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-      {cards.map((card) => (
-        <Card key={card.title}>
-          <CardContent className="p-6">
 
-            <p className="text-gray-500">
-              {card.title}
-            </p>
+const [vehicles,setVehicles]=useState(0);
+const [drivers,setDrivers]=useState(0);
+const [trips,setTrips]=useState(0);
 
-            <h2 className={`text-4xl font-bold mt-3 ${card.color}`}>
-              {card.value}
-            </h2>
+useEffect(()=>{
+load();
+},[]);
 
-          </CardContent>
-        </Card>
-      ))}
-    </div>
-  );
+async function load(){
+
+const {count:v}=await supabase
+.from("vehicles")
+.select("*",{count:"exact",head:true});
+
+const {count:d}=await supabase
+.from("drivers")
+.select("*",{count:"exact",head:true});
+
+const {count:t}=await supabase
+.from("trips")
+.select("*",{count:"exact",head:true});
+
+setVehicles(v||0);
+setDrivers(d||0);
+setTrips(t||0);
+
+}
+
+return(
+
+<div className="grid grid-cols-3 gap-6">
+
+<div className="rounded-lg border p-6">
+<h2>Total Vehicles</h2>
+<p className="text-3xl font-bold">{vehicles}</p>
+</div>
+
+<div className="rounded-lg border p-6">
+<h2>Total Drivers</h2>
+<p className="text-3xl font-bold">{drivers}</p>
+</div>
+
+<div className="rounded-lg border p-6">
+<h2>Total Trips</h2>
+<p className="text-3xl font-bold">{trips}</p>
+</div>
+
+</div>
+
+);
+
 }

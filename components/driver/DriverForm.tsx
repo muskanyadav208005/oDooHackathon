@@ -74,9 +74,9 @@ export default function DriverForm() {
 
       </Select>
 
-      <Button className="w-full">
-        Save Driver
-      </Button>
+      <Button type="submit" className="w-full">
+  Save Driver
+</Button>
 
     </form>
   );

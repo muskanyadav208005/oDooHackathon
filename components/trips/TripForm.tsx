@@ -142,9 +142,9 @@ export default function TripForm() {
         </SelectContent>
       </Select>
 
-      <Button className="w-full">
-        Save Trip
-      </Button>
+      <Button type="submit" className="w-full">
+  Save Trip
+</Button>
 
     </form>
   );
