@@ -12,10 +12,30 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Pencil, Trash2 } from "lucide-react";
-import { drivers } from "@/data/drivers";
+import { useEffect,useState } from "react";
+import { supabase } from "@/lib/supabase";
 
 export default function DriverTable() {
-  return (
+  const [drivers,setDrivers]=useState<any[]>([]);
+
+    useEffect(()=>{
+    fetchDrivers();
+    },[]);
+
+    async function fetchDrivers(){
+    const {data,error}=await supabase
+    .from("drivers")
+    .select("*");
+
+    if(error){
+    console.log(error);
+    return;
+    }
+
+    setDrivers(data);
+    }
+  
+    return (
     <div className="rounded-lg border bg-white shadow-sm">
       <Table>
         <TableHeader>
@@ -32,42 +52,47 @@ export default function DriverTable() {
         </TableHeader>
 
         <TableBody>
-          {drivers.map((driver) => (
-            <TableRow key={driver.id}>
-             
+  {drivers.map((driver) => (
+    <TableRow key={driver.id}>
 
-              <TableCell>{driver.name}</TableCell>
+      {/* No name column in drivers table */}
+      <TableCell>-</TableCell>
 
-              <TableCell>{driver.phone}</TableCell>
+      <TableCell>{driver.phone}</TableCell>
 
-              <TableCell>{driver.licenseNumber}</TableCell>
+      <TableCell>{driver.license_number}</TableCell>
 
-              <TableCell>{driver.expiry}</TableCell>
+      <TableCell>{driver.license_expiry}</TableCell>
 
-              <TableCell>
-                <Badge
-                    className={
-                    driver.status === "Available"
-                    ? "bg-green-500"
-                    : driver.status === "On Trip"
-                    ? "bg-blue-500"
-                    : "bg-red-500"
-                }
-                >{driver.status}</Badge>
-              </TableCell>
+      <TableCell>
+        <Badge
+          className={
+            driver.status === "Available"
+              ? "bg-green-500"
+              : driver.status === "On Trip"
+              ? "bg-blue-500"
+              : driver.status === "Off Duty"
+              ? "bg-yellow-500 text-black"
+              : "bg-red-500"
+          }
+        >
+          {driver.status}
+        </Badge>
+      </TableCell>
 
-              <TableCell className="flex justify-end gap-2">
-                <Button variant="outline" size="icon">
-                  <Pencil size={16} />
-                </Button>
+      <TableCell className="flex justify-end gap-2">
+        <Button variant="outline" size="icon">
+          <Pencil size={16} />
+        </Button>
 
-                <Button variant="destructive" size="icon">
-                  <Trash2 size={16} />
-                </Button>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
+        <Button variant="destructive" size="icon">
+          <Trash2 size={16} />
+        </Button>
+      </TableCell>
+
+    </TableRow>
+  ))}
+</TableBody>
       </Table>
     </div>
   );

@@ -1,6 +1,7 @@
 "use client";
 
-import { vehicles } from "@/data/vehicles";
+import { supabase } from "@/lib/supabase";
+import { useEffect, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import {
   Table,
@@ -14,6 +15,25 @@ import { Button } from "@/components/ui/button";
 import { Pencil, Trash2 } from "lucide-react";
 
 export default function VehicleTable() {
+  const [vehicles, setVehicles] = useState<any[]>([]);
+
+useEffect(() => {
+  fetchVehicles();
+}, []);
+
+async function fetchVehicles() {
+  const { data, error } = await supabase
+    .from("vehicles")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error(error);
+    return;
+  }
+
+  setVehicles(data);
+}
   return (
     <div className="rounded-lg border bg-white shadow-sm">
       <Table>
@@ -31,13 +51,13 @@ export default function VehicleTable() {
         <TableBody>
           {vehicles.map((vehicle) => (
             <TableRow key={vehicle.id}>
-              <TableCell>{vehicle.registrationNumber}</TableCell>
+              <TableCell>{vehicle.registration_number}</TableCell>
 
-              <TableCell>{vehicle.vehicleName}</TableCell>
+              <TableCell>{vehicle.manufacturer} {vehicle.model}</TableCell>
 
-              <TableCell>{vehicle.type}</TableCell>
+              <TableCell>{vehicle.vehicle_type}</TableCell>
 
-              <TableCell>{vehicle.maxLoad} kg</TableCell>
+              <TableCell>{vehicle.max_load} kg</TableCell>
 
               <TableCell>
                 <Badge
