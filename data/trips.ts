@@ -1,0 +1,48 @@
+import { Trip } from "@/types/trip";
+
+export const trips: Trip[] = [
+  {
+    id: 101,
+    vehicle: "MH12AB1234",
+    driver: "Rahul Sharma",
+    pickup: "Pune",
+    destination: "Mumbai",
+    cargoWeight: 1200,
+    distance: 160,
+    revenue: 18000,
+    status: "Completed",
+  },
+  {
+    id: 102,
+    vehicle: "DL08CD5678",
+    driver: "Priya Singh",
+    pickup: "Delhi",
+    destination: "Jaipur",
+    cargoWeight: 850,
+    distance: 280,
+    revenue: 22000,
+    status: "Dispatched",
+  },
+  {
+    id: 103,
+    vehicle: "KA05EF3456",
+    driver: "Amit Verma",
+    pickup: "Bangalore",
+    destination: "Chennai",
+    cargoWeight: 950,
+    distance: 350,
+    revenue: 25000,
+    status: "Draft",
+  },
+  {
+    id: 104,
+    vehicle: "UP32GH7890",
+    driver: "Anjali Mehta",
+    pickup: "Lucknow",
+    destination: "Kanpur",
+    cargoWeight: 600,
+    distance: 95,
+    revenue: 9000,
+    status: "Cancelled",
+  },
+];

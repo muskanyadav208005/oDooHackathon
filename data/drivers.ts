@@ -1,0 +1,68 @@
+import { Driver } from "@/types/driver";
+
+export const drivers: Driver[] = [
+  {
+    id: 1,
+    name: "Rahul Sharma",
+    licenseNumber: "DL01AB1234",
+    phone: "9876543210",
+    expiry: "2028-05-12",
+    status: "Available",
+  },
+  {
+    id: 2,
+    name: "Amit Verma",
+    licenseNumber: "DL02CD5678",
+    phone: "9123456780",
+    expiry: "2027-11-25",
+    status: "On Trip",
+  },
+  {
+    id: 3,
+    name: "Priya Singh",
+    licenseNumber: "MH14EF9012",
+    phone: "9988776655",
+    expiry: "2026-09-18",
+    status: "Available",
+  },
+  {
+    id: 4,
+    name: "Neha Kapoor",
+    licenseNumber: "KA05GH3456",
+    phone: "9012345678",
+    expiry: "2025-12-30",
+    status: "Off Duty",
+  },
+  {
+    id: 5,
+    name: "Rohit Yadav",
+    licenseNumber: "UP32IJ7890",
+    phone: "8899776655",
+    expiry: "2024-06-10",
+    status: "Suspended",
+  },
+  {
+    id: 6,
+    name: "Sanjay Kumar",
+    licenseNumber: "RJ14KL1122",
+    phone: "9090909090",
+    expiry: "2029-02-15",
+    status: "Available",
+  },
+  {
+    id: 7,
+    name: "Anjali Mehta",
+    licenseNumber: "GJ05MN3344",
+    phone: "9870011223",
+    expiry: "2028-08-09",
+    status: "On Trip",
+  },
+  {
+    id: 8,
+    name: "Vikram Patel",
+    licenseNumber: "HR26OP5566",
+    phone: "9765432109",
+    expiry: "2027-04-28",
+    status: "Available",
+  },
+];
